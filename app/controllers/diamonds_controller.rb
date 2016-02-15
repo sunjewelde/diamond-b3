@@ -27,7 +27,8 @@ class DiamondsController < ApplicationController
    @weight = ["02", "03", "04", "05", "06", "07", "08", "09", "10", "12", "15", "18", "20", "30", "40"]
    @color = ["D", "E", "F", "G", "H", "I", "J", "K", "L", "M"]
   # @color = ["D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "FIY", "FLY", "FY", "Y-Z"]
-   @clar = ["IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2", "I1", "FL"]
+   # @clar = ["IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2", "I1", "FL"]
+   @clar = ["IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2"]
    @cut_grade = ["Good", "Very Good", "Excellent", "EXC", "VGD", "F"]
    @polish = ["Excellent", "Very Good", "ex", "vg", "vgd", "gd", "exc", "Good"]
    @symmetry = ["Excellent", "Very Good", "ex", "vg", "vgd", "gd", "exc", "Good", "g", "Fair", "F"]
@@ -137,7 +138,38 @@ class DiamondsController < ApplicationController
 
    @latest_weight_group_03 = List.select('color, if1, vvs1, vvs2, vs1, vs2, si1, si2').where(weight: 0.3).where(date: @latest_date)
 
-  
+    d2 = 0
+    while d2 < @weight03_group_all_color_date.length
+      date2 = @weight03_group_all_color_date[d2]
+      if Table.exists?(date: date2) and Table.exists?(weight: 0.3) and Table.exists?(color: "D") and Table.exists?(color: "M") and Table.exists?(clar: "IF") and Table.exists?(clar: "SI2")
+      else
+          i = 0
+          while i < @color.length
+              selected_color = @color[i]
+              j = 0
+              while j < @clar.length
+                selcted_clar = @clar[j]
+                @selected_color_data2 = @weight03_group_all_color.select('date, color, clar, AVG(end_price * 0.3 / weight) AS avg_price').where(date: date2).where(color: selected_color)
+                @selected_clar = @selected_color_data2.find_by clar: selcted_clar
+                # binding.pry
+                  if @selected_clar.avg_price != ""
+                      @selected_price = @selected_clar.avg_price.round
+                      Table.create(date: date2, color: selected_color, weight: 0.3,  clar: selcted_clar, price: @selected_price)
+                  end
+                j += 1
+              end
+              i += 1
+          end
+      end
+      d2 += 1
+    end
+
+
+
+
+
+
+
     weight_group_03_color_D_IF = Diamond.date_one_week.weight03.color("D").clar("IF")
     weight_group_03_color_E_IF = Diamond.date_one_week.weight03.color("E").clar("IF")
     weight_group_03_color_F_IF = Diamond.date_one_week.weight03.color("F").clar("IF")

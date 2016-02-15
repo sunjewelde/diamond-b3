@@ -1,10 +1,15 @@
 class Diamond <ActiveRecord::Base
+
+    # require 'rubygems'
+    # require 'active_support'
     require "date"
     
     @latest_date = Diamond.maximum(:date)
     @oldest_date = Diamond.minimum(:date)
     @weight_max = Diamond.maximum(:weight)
     @weight_min = Diamond.minimum(:weight)
+
+
     @one_week_ago = (@latest_date - 6)
     @one_months_ago = (@latest_date - 30)
     @three_months_ago = (@latest_date - 90)
