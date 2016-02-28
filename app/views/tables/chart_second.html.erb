@@ -1,0 +1,36 @@
+<h1>Diamond Price Chart</h1>
+
+<div class="container">
+	<%= line_chart @diamonds_default.maximum(:price), height: "300px", width: "300px" %>
+
+
+
+	<div id="diamonds-chart" >
+        <%= high_chart("diamonds-chart", @chart) %>
+    </div>
+
+	<%= search_form_for(@q, url: tables_chart_second_path, method: :get) do |f| %>
+		<div class="use_margin_2">
+		    <%= f.label :date, "表示期間:" %>
+		    <%= f.select :date, {"1週間" => "1w", "1ヶ月" => "1m", "3ヶ月" => "3m", 
+		                            "6ヶ月" => "6m", "1年" => "1y"} %>
+		    &nbsp;
+		    <%= f.label :weight, "カラット:" %>
+		    <%= f.select :weight, {"0.3" => 0.3, "0.4" => 0.4, "0.5" => 0.5, "0.6" => 0.6,
+		                         "0.7" => 0.7, "0.8" => 0.8, "0.9" => 0.9, "1.0" => 1, 
+		                         "1.2" =>  1.2, "1.5" => 1.5} %>
+		    &nbsp;
+		    <%= f.label :color, "カラー:" %>
+		    <%= f.select :color, {"D" => "D", "E" => "E", "F" => "F", "G" => "G",
+		                         "H" => "H", "I" => "I", "J" => "J", "K" => "K", 
+		                         "L" => "L", "M" => "M"} %>
+		    &nbsp;
+		    <%= f.label :clar, "クオリティ:" %>
+		    <%= f.select :clar, {"全て" => "all", "IF" => "IF", "VVS1" => "VVS1", "VVS2" => "VVS2",
+		                         "VS1" => "VS1", "VS2" => "VS2", "SI1" => "SI1", "SI2" => "SI2"} %>
+		    &nbsp;&nbsp;
+		    <%= f.submit "チャートを表示" %>
+		</div>
+	<% end %>
+
+</div>

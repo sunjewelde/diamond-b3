@@ -1,0 +1,33 @@
+<div class="container">
+	
+	<p><%=@selected_weight %>カラット_<%=@selected_date %></p>
+	<table class="table table-bordered">
+      <tr>
+        <th bgcolor = "E7F1ED"><div class="text-center">Color</div></th>
+        <th bgcolor = "E7F1ED"><div class="text-center">IF</div></th>
+        <th bgcolor = "E7F1ED"><div class="text-center">VVS1</div></th>
+        <th bgcolor = "E7F1ED"><div class="text-center">VVs2</div></th>
+        <th bgcolor = "E7F1ED"><div class="text-center">VS1</div></th>
+        <th bgcolor = "E7F1ED"><div class="text-center">VS2</div></th>
+        <th bgcolor = "E7F1ED"><div class="text-center">SI1</div></th>
+        <th bgcolor = "E7F1ED"><div class="text-center">SI2</div></th>
+      </tr>
+    
+       <% @selected_latest_weight_group.each do |diamond| %>
+          <tr>
+            <td bgcolor = "E7F1ED" align="center"><%= diamond.color %></td>
+            <td align="center"><%= diamond.if1 %></td>
+            <td align="center"><%= diamond.vvs1 %></td>
+            <td align="center"><%= diamond.vvs2 %></td>
+            <td align="center"><%= diamond.vs1 %></td>
+            <td align="center"><%= diamond.vs2 %></td>
+            <td align="center"><%= diamond.si1 %></td>
+            <td align="center"><%= diamond.si2 %></td>
+          </tr>
+      <% end %>
+  </table>
+
+
+
+
+</div>

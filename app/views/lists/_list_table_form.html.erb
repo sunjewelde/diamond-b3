@@ -1,4 +1,18 @@
 <div class="container center">
-    <h3 class="user_margin_1">ダイヤモンド相場価格表（カラット＆日付）</h3>
+    <p class="user_margin_1">選択: 日付／カラット／カラー/クオリティ</p>
+
+    <%= search_form_for(@q, url: lists_show_path, method: :get) do |f| %>
+        <div class="use_margin_2">
+            <%= f.label :date, "日付選択:" %>
+            <%= f.date_field :date %>
+            &nbsp;
+            <%= f.label :weight, "カラット:" %>
+            <%= f.select :weight, {"0.3" => 0.3, "0.4" => 0.4, "0.5" => 0.5, "0.6" => 0.6,
+                                 "0.7" => 0.7, "0.8" => 0.8, "0.9" => 0.9, "1.0" => 1, 
+                                 "1.2" =>  1.2, "1.5" => 1.5} %>
+            &nbsp;&nbsp;
+            <%= f.submit "表示" %>
+        </div>
+    <% end %>
 
 </div>

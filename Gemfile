@@ -26,6 +26,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass'
 gem 'lazy_high_charts'
+gem "chartkick"
 gem 'kaminari'
 gem 'ransack'
 gem 'pry-byebug', group: :development

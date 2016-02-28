@@ -9,12 +9,13 @@ class Diamond <ActiveRecord::Base
     @weight_max = Diamond.maximum(:weight)
     @weight_min = Diamond.minimum(:weight)
 
-
-    @one_week_ago = (@latest_date - 6)
-    @one_months_ago = (@latest_date - 30)
-    @three_months_ago = (@latest_date - 90)
-    @six_months_ago = (@latest_date - 180)
-    @one_year_ago = (@latest_date - 364)
+    if @latest_date.present?
+      @one_week_ago = (@latest_date - 6)
+      @one_months_ago = (@latest_date - 30)
+      @three_months_ago = (@latest_date - 90)
+      @six_months_ago = (@latest_date - 180)
+      @one_year_ago = (@latest_date - 364)
+    end
     
    #7days agoの日付が存在しない場合の対処
 
@@ -46,7 +47,7 @@ class Diamond <ActiveRecord::Base
     scope :certificate_id, ->(certificate_id) {where(certificate_id: certificate_id) if color.present? }
     scope :end_price, ->(end_price) {where(end_price: end_price) if end_price.present? }
 
-    scope :weight02, -> {where(:weight=> weight_min...0.3 ) }
+    scope :weight02, -> {where(:weight=> @weight_min...0.3 ) }
     scope :weight03, -> {where(:weight=> 0.3...0.4 ) }
     scope :weight04, -> {where(:weight=> 0.4...0.5 ) }
     scope :weight05, -> {where(:weight=> 0.5...0.6 ) }
@@ -60,7 +61,7 @@ class Diamond <ActiveRecord::Base
     scope :weight18, -> {where(:weight=> 1.8...2.0 ) }
     scope :weight20, -> {where(:weight=> 2.0...3.0 ) }
     scope :weight30, -> {where(:weight=> 3.0...4.0 ) }
-    scope :weight40, -> {where(:weight=> 4.0..weight_max ) }
+    scope :weight40, -> {where(:weight=> 4.0..@weight_max ) }
 
 
   def self.import(file)
